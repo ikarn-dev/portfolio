@@ -10,7 +10,7 @@ const Portfolio = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const aboutMe = {
-    intro: "Hi,I&#39;m Karan!",
+    intro: "Hi, I'm Karan! 👋",
     description: `I'm a full-stack developer with a passion for building innovative web applications.`,
     highlights: [
       "🚀 Currently working on AI-powered web applications",
