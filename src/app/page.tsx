@@ -10,7 +10,7 @@ const Portfolio = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const aboutMe = {
-    intro: "Hi, I'm Karan! 👋",
+    intro: "Hi,I&#39;m Karan!",
     description: `I'm a full-stack developer with a passion for building innovative web applications.`,
     highlights: [
       "🚀 Currently working on AI-powered web applications",
@@ -137,7 +137,7 @@ const Portfolio = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 font-mono">
       <Head>
-        <title>Karan's Portfolio</title>
+        <title>Karan&#39;s Portfolio</title>
       </Head>
 
       <div className="flex-grow p-4 sm:p-6">
