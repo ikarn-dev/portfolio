@@ -24,7 +24,7 @@ const Portfolio = () => {
   }
 
   const aboutMe = {
-    intro: "Hi,I'm Karan! 👋",
+    intro: "Hi,I'm Karan!👋",
     description: `I'm a full-stack developer with a passion for building innovative web applications.`,
     highlights: [
       "🚀 Currently working on AI-powered web applications",
@@ -62,12 +62,12 @@ const Portfolio = () => {
     },
     {
       id: 3,
-      title: "Task Management",
-      desc: "Collaborative task management platform",
-      github: "https://github.com/karan/tasks",
-      demo: "https://tasks.demo",
-      videoUrl: "https://your-video-url.com/video3.mp4",
-      tech: ["React", "GraphQL", "PostgreSQL"],
+      title: "Amazon Clone",
+      desc: "A clone of the Amazon website (front-end only)",
+      github: "https://github.com/i-k6/amazon-clone",
+      demo: "https://karnn.netlify.app/",
+      videoUrl: "/videos/amazon.mp4",
+      tech: ["React", "Tailwind", "Framer-motion"],
     },
   ]
 
