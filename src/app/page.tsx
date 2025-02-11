@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Head from "next/head"
 import { Menu, X, Mail, Terminal, ExternalLink, Moon, Sun } from "lucide-react"
 import { BsGithub, BsLinkedin } from "react-icons/bs"
-import type React from "react" // Import React
+import type React from "react"
 
 const Portfolio = () => {
   const [activeWindow, setActiveWindow] = useState("about")
@@ -35,7 +35,7 @@ const Portfolio = () => {
   }
 
   const skills = [
-    { name: "FRONTEND", items: ["REACT", "NEXT.JS", "TYPESCRIPT", "TAILWIND"] },
+    { name: "FRONTEND", items: ["REACT", "NEXT.JS", "TYPESCRIPT", "TAILWIND" ,"GSAP"] },
     { name: "BACKEND", items: ["NODE.JS", "GRAPHQL", "EXPRESS"] },
     { name: "DATABASE", items: ["MONGODB", "POSTGRESQL", "REDIS", "PRISMA"] },
     { name: "DEVOPS", items: ["AWS", "DOCKER", "GIT", "CI/CD"] },
@@ -44,21 +44,21 @@ const Portfolio = () => {
   const projects = [
     {
       id: 1,
-      title: "E-Commerce Platform",
-      desc: "Full-stack e-commerce solution with real-time inventory",
-      github: "https://github.com/karan/ecommerce",
-      demo: "https://ecommerce.demo",
-      videoUrl: "https://your-video-url.com/video1.mp4",
-      tech: ["Next.js", "Node.js", "MongoDB"],
+      title: "Leadblaze",
+      desc: "An AI-powered platform for lead generation",
+      github: "https://github.com/ikarn-dev/LeadBlaze",
+      demo: "https://www.leadblaze.site",
+      videoUrl: "/videos/leadblaze.mp4",
+      tech: ["React", "Tailwind","Firebase","GroqCloud Api"],
     },
     {
       id: 2,
-      title: "AI Chat Interface",
-      desc: "Real-time chat application with AI integration",
-      github: "https://github.com/karan/aichat",
-      demo: "https://aichat.demo",
-      videoUrl: "https://your-video-url.com/video2.mp4",
-      tech: ["React", "Python", "OpenAI"],
+      title: "DexPro Landing Page",
+      desc: "Landing page for a decentralized exchange platform",
+      github: "https://github.com/ikarn-dev/dexpro",
+      demo: "https://dexprov1.vercel.app/",
+      videoUrl: "/videos/dexpro.mp4",
+      tech: ["React", "Tailwind", "Framer-motion", "Gsap"],
     },
     {
       id: 3,
@@ -100,6 +100,7 @@ const Portfolio = () => {
 
   const ProjectCard = ({ project }: { project: Project }) => {
     const [isHovered, setIsHovered] = useState(false)
+    const [isVideoLoaded, setIsVideoLoaded] = useState(false)
 
     return (
       <div
@@ -107,11 +108,21 @@ const Portfolio = () => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="relative h-40 bg-gray-800 mb-3 overflow-hidden rounded-lg">
+        <div className="relative aspect-video bg-gray-800 mb-3 overflow-hidden rounded-lg">
           {isHovered ? (
-            <video src={project.videoUrl} autoPlay muted loop playsInline className="w-full h-full object-cover" />
+            <video
+              src={project.videoUrl}
+              autoPlay
+              muted
+              loop
+              playsInline
+              onLoadedData={() => setIsVideoLoaded(true)}
+              className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-300 ${
+                isVideoLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
           ) : (
-            <div className="w-full h-full bg-gray-700 flex items-center justify-center">
+            <div className="absolute inset-0 w-full h-full bg-gray-700 flex items-center justify-center">
               <span className="text-white font-press-start text-xs">Hover to play demo</span>
             </div>
           )}
