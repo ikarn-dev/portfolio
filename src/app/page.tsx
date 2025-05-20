@@ -20,8 +20,8 @@ export default function Home() {
   };
 
   const greeting = "Hi, I'm ";
-  const name = "Your Name";
-  const description = "I'm currently actively seeking full-time opportunities in Software Engineering & Finance. I'm passionate about building innovative solutions and leveraging technology to solve real-world problems.";
+  const name = "Karan";
+  const description = "I'm a Full Stack Developer with a passion for creating impactful web applications that solve real-world problems. I love exploring new technologies and pushing the boundaries of what's possible on the web. Check out my skills below to see my tech stack, and browse through my projects section to see what I've built. I'm always open to new opportunities and collaborations!";
 
   return (
     <main className="relative min-h-screen w-full">
@@ -66,7 +66,7 @@ export default function Home() {
                         damping: 12,
                         stiffness: 100
                       }}
-                      className="inline-block font-['Amatic_SC'] text-4xl sm:text-6xl xl:text-7xl font-bold"
+                      className="inline-block font-['Roboto'] font-bold text-4xl sm:text-6xl xl:text-7xl text-primary"
                     >
                       {char === " " ? "\u00A0" : char}
                     </motion.span>
@@ -97,7 +97,7 @@ export default function Home() {
               <Button
                 size="lg"
                 onClick={() => scrollToSection('projects')}
-                className="rounded-full bg-primary/90 hover:bg-primary"
+                className="rounded-full bg-primary/90 hover:bg-primary cursor-pointer glow-button"
               >
                 View Projects
               </Button>
@@ -105,7 +105,7 @@ export default function Home() {
                 size="lg"
                 variant="outline"
                 onClick={() => scrollToSection('contact')}
-                className="rounded-full"
+                className="rounded-full cursor-pointer glow-button"
               >
                 Contact Me
               </Button>
@@ -153,12 +153,12 @@ export default function Home() {
               <a 
                 href="mailto:your.email@gmail.com"
                 className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors"
-              >
+        >
                 <Mail className="size-4" />
-                <span>your.email@gmail.com</span>
-              </a>
+                <span>ikarn.dev@gmail.com</span>
+        </a>
             </motion.div>
-          </div>
+    </div>
         </motion.section>
       </motion.div>
 

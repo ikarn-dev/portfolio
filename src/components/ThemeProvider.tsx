@@ -21,7 +21,6 @@ export function ThemeProvider({
   useEffect(() => {
     // Check local storage or system preference
     const savedTheme = localStorage.getItem('theme') as Theme;
-    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     const initialTheme = savedTheme || 'dark'; // Default to dark
 
     setTheme(initialTheme);

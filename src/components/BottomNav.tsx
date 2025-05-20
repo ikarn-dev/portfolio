@@ -85,7 +85,7 @@ export default function BottomNav() {
         <Tooltip>
           <TooltipTrigger asChild>
             <a
-              href="https://github.com"
+              href="https://github.com/ikarn-dev"
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 hover:bg-primary/5 rounded-full transition-colors"
@@ -101,7 +101,7 @@ export default function BottomNav() {
         <Tooltip>
           <TooltipTrigger asChild>
             <a
-              href="https://x.com"
+              href="https://x.com/iKK6600"
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 hover:bg-primary/5 rounded-full transition-colors"

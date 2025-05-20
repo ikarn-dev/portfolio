@@ -4,33 +4,31 @@ import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 
 const skills = [
-  // Technical
-  "React",
-  "Next.js",
+  "Java",
+  "JavaScript",
   "TypeScript",
+  "React.js",
+  "Next.js",
   "Node.js",
-  "Python",
-  "Docker",
-  "Git/GitHub",
+  "HTML5",
+  "TailwindCSS",
+  "Shadcn",
+  "MongoDB",
+  "PostgreSQL",
+  "Redis",
   "SQL",
-  "Express.js",
-  // Finance
-  "Quantitative Finance",
-  "Monte Carlo Simulation",
-  "Portfolio Optimization",
-  "Black-Scholes Model",
-  "Delta Hedging",
-  "Value at Risk",
-  "Bloomberg",
-  // Data Science
-  "Pandas",
-  "NumPy",
-  "TensorFlow",
-  "C++",
-  "VBA Programming",
-  // Design
-  "Figma",
-  "Swift / SwiftUI",
+  "RDBMS",
+  "DBMS",
+  "Supabase",
+  "Firebase",
+  "Prisma",
+  "REST API",
+  "Ethers.js",
+  "Solana Web3.js",
+  "Zustand",
+  "Git",
+  "Github",
+  "Vercel"
 ];
 
 const SkillsSection = () => {

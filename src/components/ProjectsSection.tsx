@@ -19,56 +19,53 @@ interface Project {
   tech: string[];
   github: string;
   live: string;
-  image: string;
+  video: string;
 }
 
 const projects: Project[] = [
   {
-    title: "Project 1",
-    tech: ["Next.js", "TypeScript", "Tailwind"],
-    github: "https://github.com",
-    live: "https://example.com",
-    image: "https://picsum.photos/800/400?random=1",
+    title: "LeadBlaze",
+    tech: ["React", "TailwindCSS", "Firebase Auth", "GroqCloud API", "Framer Motion"],
+    github: "https://github.com/ikarn-dev/LeadBlaze",
+    live: "https://www.leadblaze.site",
+    video: "/assets/project-videos/LeadBlaze-video.mp4"
   },
   {
-    title: "Project 2",
-    tech: ["React", "Node.js", "MongoDB"],
-    github: "https://github.com",
-    live: "https://example.com",
-    image: "https://picsum.photos/800/400?random=2",
-  },
-  {
-    title: "Project 3",
-    tech: ["Vue.js", "Express", "PostgreSQL"],
-    github: "https://github.com",
-    live: "https://example.com",
-    image: "https://picsum.photos/800/400?random=3",
-  },
+    title: "Solana Staking Dashboard",
+    tech: ["Next.js", "TypeScript", "TailwindCSS", "SolanaBeach API"],
+    github: "https://github.com/ikarn-dev/Solana-dashboard",
+    live: "https://solana-dashboard-ikarn-devs-projects.vercel.app",
+    video: "/assets/project-videos/solDashboard-video.mp4"
+  }
 ];
 
 interface ProjectCardProps {
   project: Project;
-  index: number;
   ref: (el: HTMLDivElement | null) => void;
 }
 
-const ProjectCard = ({ project, index, ref }: ProjectCardProps) => {
+const ProjectCard = ({ project, ref }: ProjectCardProps) => {
   return (
     <Card
       ref={ref}
-      className="group relative overflow-hidden transition-all duration-500 rounded-2xl bg-background/50 backdrop-blur-sm border border-primary/10 hover:border-primary/20"
+      className="group relative overflow-hidden transition-all duration-500 rounded-2xl border-2 border-primary hover:border-primary p-0 hover:scale-[1.02] hover:shadow-lg bg-background"
     >      
-      <div className="relative h-[300px] overflow-hidden rounded-t-2xl">
-        <img 
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/90" />
+      <div className="relative aspect-video w-full overflow-hidden rounded-t-2xl bg-background">
+        <video 
+          autoPlay
+          loop
+          muted
+          playsInline
+          controlsList="nodownload"
+          className="absolute inset-0 w-full h-full object-cover object-center z-10"
+        >
+          <source src={project.video} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
 
-      <CardHeader className="relative p-4 -mt-12">
-        <CardTitle className="text-xl font-semibold mb-2 relative z-10">
+      <CardHeader className="relative p-6 bg-background border-t-2 border-primary">
+        <CardTitle className="text-xl font-semibold mb-2">
           {project.title}
         </CardTitle>
         
@@ -76,7 +73,7 @@ const ProjectCard = ({ project, index, ref }: ProjectCardProps) => {
           {project.tech.map((tech) => (
             <span
               key={tech}
-              className="inline-flex items-center rounded-md px-2.5 py-0.5 text-xs font-semibold transition-colors bg-primary/15 hover:bg-primary/25 border border-primary/20 text-foreground shadow-sm"
+              className="inline-flex items-center rounded-md px-2.5 py-0.5 text-xs font-semibold bg-primary text-background border-2 border-primary"
             >
               {tech}
             </span>
@@ -88,7 +85,7 @@ const ProjectCard = ({ project, index, ref }: ProjectCardProps) => {
             asChild
             variant="ghost"
             size="sm"
-            className="h-8 px-3 bg-primary/15 hover:bg-primary/25 border border-primary/20 text-foreground shadow-sm rounded-md transition-all duration-300 hover:-translate-y-0.5"
+            className="h-8 px-3 bg-primary text-background border-2 border-primary shadow-sm rounded-md transition-all duration-300 hover:-translate-y-0.5"
           >
             <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5">
               <Github className="size-3.5" />
@@ -99,7 +96,7 @@ const ProjectCard = ({ project, index, ref }: ProjectCardProps) => {
             asChild
             variant="ghost"
             size="sm"
-            className="h-8 px-3 bg-primary/15 hover:bg-primary/25 border border-primary/20 text-foreground shadow-sm rounded-md transition-all duration-300 hover:-translate-y-0.5"
+            className="h-8 px-3 bg-primary text-background border-2 border-primary shadow-sm rounded-md transition-all duration-300 hover:-translate-y-0.5"
           >
             <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5">
               <ExternalLink className="size-3.5" />
@@ -186,7 +183,6 @@ const ProjectsSection = () => {
           >
             <ProjectCard
               project={project}
-              index={index}
               ref={el => {
                 projectRefs.current[index] = el;
               }}
