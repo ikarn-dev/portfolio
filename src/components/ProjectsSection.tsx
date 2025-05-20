@@ -28,14 +28,14 @@ const projects: Project[] = [
     tech: ["React", "TailwindCSS", "Firebase Auth", "GroqCloud API", "Framer Motion"],
     github: "https://github.com/ikarn-dev/LeadBlaze",
     live: "https://www.leadblaze.site",
-    video: "/assets/project-videos/LeadBlaze-video.mp4"
+    video: "/assets/project-videos/LeadBlaze-video.webm"
   },
   {
     title: "Solana Staking Dashboard",
     tech: ["Next.js", "TypeScript", "TailwindCSS", "SolanaBeach API"],
     github: "https://github.com/ikarn-dev/Solana-dashboard",
     live: "https://solana-dashboard-ikarn-devs-projects.vercel.app",
-    video: "/assets/project-videos/solDashboard-video.mp4"
+    video: "/assets/project-videos/solDashboard-video.webm"
   }
 ];
 
@@ -59,7 +59,7 @@ const ProjectCard = ({ project, ref }: ProjectCardProps) => {
           controlsList="nodownload"
           className="absolute inset-0 w-full h-full object-cover object-center z-10"
         >
-          <source src={project.video} type="video/mp4" />
+          <source src={project.video} type="video/webm" />
           Your browser does not support the video tag.
         </video>
       </div>

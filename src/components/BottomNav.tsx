@@ -22,7 +22,7 @@ export default function BottomNav() {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="fixed bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-1 p-1 rounded-full bg-background/50 backdrop-blur-md border border-primary/10 shadow-lg"
+        className="fixed bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-1 p-1 mx-4 rounded-full bg-background/50 backdrop-blur-md border border-primary/10 shadow-lg"
       >
         <Tooltip>
           <TooltipTrigger asChild>

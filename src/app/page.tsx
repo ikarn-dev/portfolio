@@ -151,7 +151,7 @@ export default function Home() {
             
             <motion.div variants={fadeInUp}>
               <a 
-                href="mailto:your.email@gmail.com"
+                href="mailto:ikarn.dev@gmail.com"
                 className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors"
         >
                 <Mail className="size-4" />
