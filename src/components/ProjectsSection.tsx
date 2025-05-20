@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -31,11 +31,25 @@ const projects: Project[] = [
     video: "/assets/project-videos/LeadBlaze-video.webm"
   },
   {
+    title: "Omniverse",
+    tech: ["Next.js", "TypeScript", "TailwindCSS", "Supabase", "Solana Web3.js", "Framer Motion","Zustand","GSAP"],
+    github: "https://github.com/ikarn-dev/omniverse",
+    live: "https://omniverse-ten.vercel.app/",
+    video: "/assets/project-videos/omniverse-video.webm"
+  },
+  {
     title: "Solana Staking Dashboard",
     tech: ["Next.js", "TypeScript", "TailwindCSS", "SolanaBeach API"],
     github: "https://github.com/ikarn-dev/Solana-dashboard",
     live: "https://solana-dashboard-ikarn-devs-projects.vercel.app",
     video: "/assets/project-videos/solDashboard-video.webm"
+  },
+  {
+    title: "Dexpro",
+    tech: ["React", "TailwindCSS", "Framer Motion"],
+    github: "https://github.com/ikarn-dev/dexpro",
+    live: "https://dexprov1.vercel.app/",
+    video: "/assets/project-videos/Dexpro-video.webm"
   }
 ];
 
@@ -45,19 +59,58 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ project, ref }: ProjectCardProps) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '50px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && videoRef.current) {
+          videoRef.current.play().catch(() => {
+            // Handle autoplay failure silently
+          });
+        } else if (videoRef.current) {
+          videoRef.current.pause();
+        }
+      });
+    }, options);
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <Card
       ref={ref}
       className="group relative overflow-hidden transition-all duration-500 rounded-2xl border-2 border-primary hover:border-primary p-0 hover:scale-[1.02] hover:shadow-lg bg-background"
     >      
       <div className="relative aspect-video w-full overflow-hidden rounded-t-2xl bg-background">
+        {!isVideoLoaded && (
+          <div className="absolute inset-0 flex items-center justify-center bg-background">
+            <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )}
         <video 
-          autoPlay
+          ref={videoRef}
+          autoPlay={false}
           loop
           muted
           playsInline
+          preload="none"
           controlsList="nodownload"
-          className="absolute inset-0 w-full h-full object-cover object-center z-10"
+          onLoadedData={() => setIsVideoLoaded(true)}
+          className={`absolute inset-0 w-full h-full object-cover object-center z-10 transition-opacity duration-300 ${isVideoLoaded ? 'opacity-100' : 'opacity-0'}`}
         >
           <source src={project.video} type="video/webm" />
           Your browser does not support the video tag.

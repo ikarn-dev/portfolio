@@ -21,7 +21,13 @@ export default function Home() {
 
   const greeting = "Hi, I'm ";
   const name = "Karan";
-  const description = "I'm a Full Stack Developer with a passion for creating impactful web applications that solve real-world problems. I love exploring new technologies and pushing the boundaries of what's possible on the web. Check out my skills below to see my tech stack, and browse through my projects section to see what I've built. I'm always open to new opportunities and collaborations!";
+  const description = [
+    "• Full Stack Developer crafting impactful web applications",
+    "• Passionate about solving real-world problems through code",
+    "• Always exploring new technologies and pushing boundaries",
+    "• Proficient in modern web development stack",
+    "• Open to exciting opportunities and collaborations"
+  ].join("\n");
 
   return (
     <main className="relative min-h-screen w-full">
@@ -83,7 +89,7 @@ export default function Home() {
                 delay: name.length * 0.05,
                 ease: [0.33, 1, 0.68, 1]
               }}
-              className="text-muted-foreground text-lg md:text-xl max-w-2xl leading-relaxed"
+              className="text-muted-foreground text-lg md:text-xl max-w-2xl space-y-2 whitespace-pre-line leading-relaxed"
             >
               {description}
             </motion.p>
