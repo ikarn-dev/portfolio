@@ -21,13 +21,7 @@ export default function Home() {
 
   const greeting = "Hi, I'm ";
   const name = "Karan";
-  const description = [
-    "• Full Stack Developer crafting impactful web applications",
-    "• Passionate about solving real-world problems through code",
-    "• Always exploring new technologies and pushing boundaries",
-    "• Proficient in modern web development stack",
-    "• Open to exciting opportunities and collaborations"
-  ].join("\n");
+  const description = "Full Stack Developer building clean, impactful web experiences. Curious mind, modern tech, and a passion for solving real-world problems.";
 
   return (
     <main className="relative min-h-screen w-full">

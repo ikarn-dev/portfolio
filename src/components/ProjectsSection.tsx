@@ -10,7 +10,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Github, ExternalLink } from "lucide-react";
+import { Github, ExternalLink, Play, Pause } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -61,6 +62,10 @@ interface ProjectCardProps {
 const ProjectCard = ({ project, ref }: ProjectCardProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     const options = {
@@ -72,11 +77,14 @@ const ProjectCard = ({ project, ref }: ProjectCardProps) => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && videoRef.current) {
-          videoRef.current.play().catch(() => {
+          videoRef.current.play().then(() => {
+            setIsPlaying(true);
+          }).catch(() => {
             // Handle autoplay failure silently
           });
         } else if (videoRef.current) {
           videoRef.current.pause();
+          setIsPlaying(false);
         }
       });
     }, options);
@@ -90,12 +98,67 @@ const ProjectCard = ({ project, ref }: ProjectCardProps) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (videoRef.current) {
+      const video = videoRef.current;
+      
+      const handleTimeUpdate = () => {
+        setCurrentTime(video.currentTime);
+      };
+
+      const handleLoadedMetadata = () => {
+        setDuration(video.duration);
+      };
+
+      video.addEventListener('timeupdate', handleTimeUpdate);
+      video.addEventListener('loadedmetadata', handleLoadedMetadata);
+
+      return () => {
+        video.removeEventListener('timeupdate', handleTimeUpdate);
+        video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      };
+    }
+  }, []);
+
+  const togglePlayPause = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleTimelineClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (videoRef.current) {
+      const timeline = e.currentTarget;
+      const rect = timeline.getBoundingClientRect();
+      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const percentage = x / rect.width;
+      const newTime = Math.min(Math.max(percentage * duration, 0), duration);
+      videoRef.current.currentTime = newTime;
+      setCurrentTime(newTime);
+    }
+  };
+
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
   return (
     <Card
       ref={ref}
       className="group relative overflow-hidden transition-all duration-500 rounded-2xl border-2 border-primary hover:border-primary p-0 hover:scale-[1.02] hover:shadow-lg bg-background"
     >      
-      <div className="relative aspect-video w-full overflow-hidden rounded-t-2xl bg-background">
+      <div 
+        className="relative aspect-video w-full overflow-hidden rounded-t-2xl bg-background"
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      >
         {!isVideoLoaded && (
           <div className="absolute inset-0 flex items-center justify-center bg-background">
             <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
@@ -115,6 +178,44 @@ const ProjectCard = ({ project, ref }: ProjectCardProps) => {
           <source src={project.video} type="video/webm" />
           Your browser does not support the video tag.
         </video>
+
+        {/* Video Controls */}
+        <div 
+          className={cn(
+            "absolute bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-black/50 to-transparent p-4 transition-opacity duration-300",
+            isHovering ? "opacity-100" : "opacity-0"
+          )}
+        >
+          <div className="flex flex-col gap-2">
+            {/* Timeline */}
+            <div 
+              className="w-full h-1 bg-white/30 rounded-full cursor-pointer relative"
+              onClick={handleTimelineClick}
+            >
+              <div 
+                className="absolute top-0 left-0 h-full bg-primary rounded-full"
+                style={{ width: `${(currentTime / duration) * 100}%` }}
+              />
+            </div>
+
+            {/* Controls */}
+            <div className="flex items-center gap-4">
+              <button
+                onClick={togglePlayPause}
+                className="text-white hover:text-primary transition-colors"
+              >
+                {isPlaying ? (
+                  <Pause className="w-6 h-6" />
+                ) : (
+                  <Play className="w-6 h-6" />
+                )}
+              </button>
+              <div className="text-white text-sm">
+                {formatTime(currentTime)} / {formatTime(duration)}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <CardHeader className="relative p-6 bg-background border-t-2 border-primary">
