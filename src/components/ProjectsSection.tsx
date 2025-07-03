@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Github, ExternalLink, Play, Pause } from "lucide-react";
+import { Github, ExternalLink, Play, Pause, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -173,11 +173,6 @@ const ProjectCard = ({ project, ref }: ProjectCardProps) => {
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
-        {!isVideoLoaded && (
-          <div className="absolute inset-0 flex items-center justify-center bg-background">
-            <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        )}
         <video 
           ref={videoRef}
           autoPlay={false}
@@ -277,8 +272,19 @@ const ProjectCard = ({ project, ref }: ProjectCardProps) => {
   );
 };
 
+const DotsLoader = () => (
+  <span className="flex items-center justify-center w-[120px] h-11 gap-1">
+    <span className="block w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0s' }}></span>
+    <span className="block w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></span>
+    <span className="block w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></span>
+  </span>
+);
+
 const ProjectsSection = () => {
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [visibleCount, setVisibleCount] = useState(3);
+  const [isLoading, setIsLoading] = useState(false);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -302,7 +308,7 @@ const ProjectsSection = () => {
     });
 
     return () => ctx.revert();
-  }, []);
+  }, [visibleCount]);
 
   const container = {
     hidden: { opacity: 0 },
@@ -328,6 +334,18 @@ const ProjectsSection = () => {
     }
   };
 
+  const handleLoadMore = () => {
+    const prevScrollY = window.scrollY;
+    setIsLoading(true);
+    setTimeout(() => {
+      setVisibleCount(c => c + 3);
+      setIsLoading(false);
+      setTimeout(() => {
+        window.scrollTo({ top: prevScrollY });
+      }, 0);
+    }, 700);
+  };
+
   return (
     <div className="flex min-h-0 flex-col gap-y-3">
       <motion.div
@@ -343,7 +361,7 @@ const ProjectsSection = () => {
         initial="hidden"
         animate="show"
       >
-        {projects.map((project, index) => (
+        {projects.slice(0, visibleCount).map((project, index) => (
           <motion.div
             key={project.title}
             variants={item}
@@ -358,6 +376,17 @@ const ProjectsSection = () => {
           </motion.div>
         ))}
       </motion.div>
+      {visibleCount < projects.length && (
+        <div ref={loadMoreRef} className="flex justify-center mt-4 min-h-[44px]">
+          {isLoading ? (
+            <DotsLoader />
+          ) : (
+            <Button onClick={handleLoadMore} variant="outline" className="w-[120px] h-11" type="button">
+              Load More
+            </Button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

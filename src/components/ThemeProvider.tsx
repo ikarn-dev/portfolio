@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
+import ThemeTransitionOverlay from "./ThemeTransitionOverlay";
 
 type Theme = 'dark' | 'light';
 
@@ -17,6 +18,7 @@ export function ThemeProvider({
   children: React.ReactNode;
 }) {
   const [theme, setTheme] = useState<Theme>('dark');
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     // Check local storage or system preference
@@ -28,14 +30,22 @@ export function ThemeProvider({
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
-    localStorage.setItem('theme', newTheme);
+    setIsTransitioning(true);
+    setTimeout(() => {
+      const newTheme = theme === 'dark' ? 'light' : 'dark';
+      setTheme(newTheme);
+      document.documentElement.classList.toggle('dark', newTheme === 'dark');
+      localStorage.setItem('theme', newTheme);
+    }, 200); // Switch theme earlier for smoother effect
+    setTimeout(() => setIsTransitioning(false), 600); // Shorter total duration
   };
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <ThemeTransitionOverlay
+        isActive={isTransitioning}
+        color={theme === 'dark' ? '#fff' : '#18171c'}
+      />
       {children}
     </ThemeContext.Provider>
   );
