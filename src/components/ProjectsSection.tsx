@@ -51,6 +51,20 @@ const projects: Project[] = [
     github: "https://github.com/ikarn-dev/dexpro",
     live: "https://dexprov1.vercel.app/",
     video: "/assets/project-videos/Dexpro-video.webm"
+  },
+  {
+    title: "Gorgames",
+    tech: ["Rust", "Anchor", "Solana", "Next.js", "TailwindCSS"],
+    github: "https://github.com/ikarn-dev/gorgames",
+    live: "https://gorgames-demo.vercel.app/",
+    video: "/assets/project-videos/gorgames-demo.webm"
+  },
+  {
+    title: "Emmy-Story",
+    tech: ["Next.js", "TypeScript", "TailwindCSS", "Framer Motion","GSAP"],
+    github: "https://github.com/ikarn-dev/emmy",
+    live: "https://emmy-demo.vercel.app/",
+    video: "/assets/project-videos/emmy-demo.webm"
   }
 ];
 
