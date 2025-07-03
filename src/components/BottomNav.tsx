@@ -24,14 +24,6 @@ export default function BottomNav() {
         transition={{ duration: 0.5 }}
         className="fixed bottom-3 left-1/2 -translate-x-1/2 mx-auto max-w-[95%] z-50"
       >
-        {/* SVG filter for glass effect */}
-        <svg style={{ display: 'none' }}>
-          <filter id="lg-dist" x="0%" y="0%" width="100%" height="100%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="92" result="noise" />
-            <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
-            <feDisplacementMap in="SourceGraphic" in2="blurred" scale="70" xChannelSelector="R" yChannelSelector="G" />
-          </filter>
-        </svg>
         <div className="glass-container glass-container--rounded glass-container--large">
           <div className="glass-filter"></div>
           <div className="glass-overlay"></div>
@@ -41,7 +33,7 @@ export default function BottomNav() {
               <TooltipTrigger asChild>
                 <button
                   onClick={() => scrollToSection('home')}
-                  className="p-2 sm:p-3 hover:bg-primary/5 rounded-full transition-colors cursor-pointer"
+                  className="p-2 sm:p-3 hover:bg-primary/5 rounded-full transition-colors"
                 >
                   <Home className="size-4 sm:size-5" />
                 </button>
@@ -55,7 +47,7 @@ export default function BottomNav() {
               <TooltipTrigger asChild>
                 <button
                   onClick={() => scrollToSection('skills')}
-                  className="p-2 sm:p-3 hover:bg-primary/5 rounded-full transition-colors cursor-pointer"
+                  className="p-2 sm:p-3 hover:bg-primary/5 rounded-full transition-colors"
                 >
                   <Blocks className="size-4 sm:size-5" />
                 </button>
@@ -69,7 +61,7 @@ export default function BottomNav() {
               <TooltipTrigger asChild>
                 <button
                   onClick={() => scrollToSection('projects')}
-                  className="p-2 sm:p-3 hover:bg-primary/5 rounded-full transition-colors cursor-pointer"
+                  className="p-2 sm:p-3 hover:bg-primary/5 rounded-full transition-colors"
                 >
                   <FolderGit2 className="size-4 sm:size-5" />
                 </button>
@@ -83,7 +75,7 @@ export default function BottomNav() {
               <TooltipTrigger asChild>
                 <button
                   onClick={() => scrollToSection('contact')}
-                  className="p-2 sm:p-3 hover:bg-primary/5 rounded-full transition-colors cursor-pointer"
+                  className="p-2 sm:p-3 hover:bg-primary/5 rounded-full transition-colors"
                 >
                   <Mail className="size-4 sm:size-5" />
                 </button>
@@ -101,7 +93,7 @@ export default function BottomNav() {
                   href="https://github.com/ikarn-dev"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 sm:p-3 hover:bg-primary/5 rounded-full transition-colors cursor-pointer"
+                  className="p-2 sm:p-3 hover:bg-primary/5 rounded-full transition-colors"
                 >
                   <Github className="size-4 sm:size-5" />
                 </a>
@@ -117,7 +109,7 @@ export default function BottomNav() {
                   href="https://x.com/iKK6600"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 sm:p-3 hover:bg-primary/5 rounded-full transition-colors cursor-pointer"
+                  className="p-2 sm:p-3 hover:bg-primary/5 rounded-full transition-colors"
                 >
                   <Twitter className="size-4 sm:size-5" />
                 </a>
@@ -127,9 +119,11 @@ export default function BottomNav() {
               </TooltipContent>
             </Tooltip>
 
+            <div className="mx-0.5 sm:mx-1 h-5 w-px bg-primary/10" />
+            
             <Tooltip>
               <TooltipTrigger asChild>
-                <div className="cursor-pointer">
+                <div>
                   <ThemeToggle />
                 </div>
               </TooltipTrigger>
@@ -142,4 +136,4 @@ export default function BottomNav() {
       </motion.nav>
     </TooltipProvider>
   );
-} 
+}
